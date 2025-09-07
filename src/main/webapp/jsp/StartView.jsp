@@ -7,6 +7,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	hallo was geht?
+	<header>
+        <h1>(websitename) 🍲</h1>
+        <p>Finde und teile einfache Alltagsrezepte</p>
+    </header>
+    <nav>
+        <a href="RezeptErstellenView.jsp">➕ Rezept erstellen</a>
+        <a href="SucheView.jsp?zutat=">🔍 Rezepte suchen</a>
+        <a href="FavoritHinzufuegenView.jsp">⭐ Favoriten</a>
+    </nav>
+    
+
+   <h2>Willkommen!</h2>
+   <p>Nutze das Menü, um dein Lieblingsrezept zu finden oder selbst eines zu erstellen!</p>
+
+    
+    
+    
+    <footer>
+        &copy; 2025 (websitename) Projekt | BWI520
+    </footer>
 </body>
 </html>
