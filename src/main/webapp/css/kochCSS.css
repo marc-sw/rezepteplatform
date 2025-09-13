@@ -1,0 +1,56 @@
+body {
+    font-family: Arial;
+    margin: 0;
+}
+
+header {
+    background: #FF6347;
+    color: white;
+    padding: 5px;
+}
+
+.login-box {
+    position: absolute;
+    top: 30px;
+    right: 20px;
+}
+
+.login-box button {
+    color: #FF6347;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.login-box button:hover {
+    background: #FFe0b2;
+}
+
+nav {
+    background: #FFF5E1;
+    padding: 20px;
+    text-align: center;
+}
+
+nav a {
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+}
+
+nav a:hover {
+    background: #4CAF50;
+    color: white;
+    padding: 5px;
+}
+
+main{
+	margin-left: 15px;
+}
+
+footer {
+	background-color: grey;
+    text-align: center;
+    padding: 15px;
+    margin-top: 20px;
+}
