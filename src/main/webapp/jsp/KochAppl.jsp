@@ -10,18 +10,19 @@
 <body>
 <jsp:useBean id="ab" class="de.hwg_lu.bwi520.bean.AccountBean" scope="session"></jsp:useBean>
 <%
-String registrieren = request.getParameter("registrieren");
-String anmelden = request.getParameter("anmelden");
+String registrieren = request.getParameter("Registrieren");
+String anmelden = request.getParameter("Anmelden");
 if(registrieren == null) registrieren ="";
 if(anmelden == null) anmelden = "";
-
+System.out.println(registrieren);
+System.out.println(anmelden);
 String username = request.getParameter("username");
 String passwort = request.getParameter("passwort");
 
-if (registrieren.equals("registrieren")){
+if (registrieren.equals("Registrieren")){
 	ab.register(username, passwort);
 	response.sendRedirect("./StartView.jsp");
-} if (anmelden.equals("anmelden")){
+} else if (anmelden.equals("Anmelden")){
 	ab.login(username, passwort);
 	response.sendRedirect("./StartView.jsp");
 }else{
