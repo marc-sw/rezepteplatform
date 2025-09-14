@@ -22,8 +22,7 @@ public class AccountTable {
 	private boolean createTable() throws SQLException {
 		String sql = """
 				CREATE TABLE IF NOT EXISTS account (
-					email VARCHAR PRIMARY KEY
-					username VARCHAR NOT NULL
+					username VARCHAR PRIMARY KEY
 					password VARCHAR NOT NULL
 				);
 					""";
@@ -38,27 +37,25 @@ public class AccountTable {
 	}
 	
 	public boolean createAccount(Account account) throws SQLException {
-		String sql = "INSERT INTO account (email, username, password) VALUES (?, ?, ?);";
+		String sql = "INSERT INTO account (username, password) VALUES (?, ?);";
 		PreparedStatement stmt = this.connection.prepareStatement(sql);
-		stmt.setString(1, account.getEmail());
-		stmt.setString(2, account.getUsername());
-		stmt.setString(3, account.getPassword());
+		stmt.setString(1, account.getUsername());
+		stmt.setString(2, account.getPassword());
 		boolean accountCreated = stmt.executeUpdate() == 1;
 		return accountCreated;
 	}
 	
-	public Account findAccount(String email, String password) throws SQLException {
-		String sql = "SELECT email, username, password FROM account WHERE email = ? AND password = ?;";
+	public Account findAccount(String username, String password) throws SQLException {
+		String sql = "SELECT username, password FROM account WHERE username = ? AND password = ?;";
 		PreparedStatement stmt = this.connection.prepareStatement(sql);
-		stmt.setString(1, email);
+		stmt.setString(1, username);
 		stmt.setString(2, password);
 		ResultSet result = stmt.executeQuery();
 		Account account = null;
 		if (result.next()) {
 			account = new Account();
-			account.setEmail(result.getString(1));
-			account.setUsername(result.getString(2));
-			account.setPassword(result.getString(3));
+			account.setUsername(result.getString(1));
+			account.setPassword(result.getString(2));
 		}
 		return account;
 	}
