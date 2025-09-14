@@ -8,6 +8,7 @@ import de.hwg_lu.bwi520.model.Account;
 
 public class AccountBean {
 	
+	
 	private Account userAccount;
 	private AccountTable accountTable;
 	
