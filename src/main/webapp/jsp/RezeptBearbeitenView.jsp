@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Rezept Bearbeiten</title>
 </head>
 <body>
+
+    <h1>Rezept Bearbeiten</h1>
+    <p>Hier findest du leckere Rezepte für jeden Anlass.</p>
 
 </body>
 </html>
