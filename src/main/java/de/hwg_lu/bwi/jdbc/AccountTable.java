@@ -22,7 +22,7 @@ public class AccountTable {
 	private boolean createTable() throws SQLException {
 		String sql = """
 				CREATE TABLE IF NOT EXISTS account (
-					username VARCHAR PRIMARY KEY
+					username VARCHAR PRIMARY KEY,
 					password VARCHAR NOT NULL
 				);
 					""";

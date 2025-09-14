@@ -34,7 +34,7 @@ public class AccountBean {
 	
 	public String generateAccountHTML() {
 		if (userAccount == null) {
-			return "<form action=\"./ KochAppl.jsp\" method=\"get\">\r\n"
+			return "<form action=\"./KochAppl.jsp\" method=\"get\">\r\n"
 			+ "                <table>\r\n"
 			+ "                    <tr>\r\n"
 			+ "                        <td><input type=\"text\" name=\"username\" placeholder=\"Benutzername\"></td>\r\n"
@@ -43,8 +43,8 @@ public class AccountBean {
 			+ "                    	<td><input type=\"password\" name=\"passwort\" placeholder=\"Passwort\"></td> \r\n"
 			+ "                    </tr>\r\n"
 			+ "                     <tr> \r\n"
-			+ "                       <td><button type=\"submit\">Anmelden</button> \r\n"
-			+ "                       <button type=\"button\" >Registrieren</button></td>\r\n"
+			+ "                       <td><input type=\"submit\" name=\"Registrieren\" value=\"Registrieren\"> \r\n"
+			+ "                       <input type=\"submit\" name=\"Anmelden\" value=\"Anmelden\"></td>\r\n"
 			+ "                    </tr>\r\n"
 			+ "                </table>\r\n"
 			+ "            </form>";
