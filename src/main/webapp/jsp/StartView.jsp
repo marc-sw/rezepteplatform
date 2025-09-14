@@ -17,7 +17,7 @@
             <form action="LoginView.jsp" method="post">
                 <table>
                     <tr>
-                        <td><input type="text" name="email" placeholder="E-Mail"></td>
+                        <td><input type="text" name="username" placeholder="Benutzername"></td>
                    </tr>
                     <tr> 
                     	<td><input type="password" name="passwort" placeholder="Passwort"></td> 
