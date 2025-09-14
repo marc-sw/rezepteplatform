@@ -21,14 +21,10 @@ String passwort = request.getParameter("passwort");
 
 if (registrieren.equals("Registrieren")){
 	ab.register(username, passwort);
-	response.sendRedirect("./StartView.jsp");
 } else if (anmelden.equals("Anmelden")){
 	ab.login(username, passwort);
-	response.sendRedirect("./StartView.jsp");
-}else{
-	response.sendRedirect("./StartView.jsp");
 }
-		
+response.sendRedirect("./StartView.jsp");		
 		
 %>
 </body>
