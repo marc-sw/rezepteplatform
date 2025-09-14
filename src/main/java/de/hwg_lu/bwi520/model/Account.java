@@ -5,6 +5,16 @@ public class Account {
 	private String username;
 	private String password;
 	
+	public Account(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+	
+	public Account() {
+		this(null, null);
+	}
+
 	public String getUsername() {
 		return username;
 	}
