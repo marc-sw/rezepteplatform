@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="de.hwg_lu.bwi520.bean.AccountBean" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,26 +9,13 @@
 <link rel="stylesheet" href="../css/kochCSS.css">
 </head>
 <body>
-
+	<jsp:useBean id="account" class="de.hwg_lu.bwi520.bean.AccountBean" scope="session" />
 	<header>
         <h1>(name)</h1>
         <p>Finde und teile deine leckeren Rezepte!</p>
         
         <div class="login-box">
-            <form action="LoginView.jsp" method="post">
-                <table>
-                    <tr>
-                        <td><input type="text" name="username" placeholder="Benutzername"></td>
-                   </tr>
-                    <tr> 
-                    	<td><input type="password" name="passwort" placeholder="Passwort"></td> 
-                    </tr>
-                     <tr> 
-                       <td><button type="submit">Anmelden</button> 
-                       <button type="button" >Registrieren</button></td>
-                    </tr>
-                </table>
-            </form>
+            <%=account.generateAccountHTML() %>
         </div>
         
     </header>
@@ -39,7 +27,7 @@
     
     <main>
     
-        <h2>Willkommen!</h2> <!-- Wenn man eingeloggt ist, dann soll da stehen "Willkommen, (Benutzername)!" -->
+        <h2>Willkommen <%=account.generateUsernameHTML() %>!</h2> <!-- Wenn man eingeloggt ist, dann soll da stehen "Willkommen, (Benutzername)!" -->
         <p>Nutze das Menü, um dein Lieblingsrezept zu finden oder selbst eines zu erstellen!</p>
 
         
