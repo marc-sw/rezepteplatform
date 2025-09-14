@@ -34,7 +34,7 @@ public class AccountBean {
 	
 	public String generateAccountHTML() {
 		if (userAccount == null) {
-			return "<form action=\"LoginView.jsp\" method=\"post\">\r\n"
+			return "<form action=\"./ KochAppl.jsp\" method=\"get\">\r\n"
 			+ "                <table>\r\n"
 			+ "                    <tr>\r\n"
 			+ "                        <td><input type=\"text\" name=\"username\" placeholder=\"Benutzername\"></td>\r\n"

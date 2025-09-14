@@ -15,11 +15,14 @@ String anmelden = request.getParameter("anmelden");
 if(registrieren == null) registrieren ="";
 if(anmelden == null) anmelden = "";
 
-if (registrieren.equals("registrieren")){
+String username = request.getParameter("username");
+String passwort = request.getParameter("passwort");
 
+if (registrieren.equals("registrieren")){
+	ab.register(username, passwort);
 	response.sendRedirect("./StartView.jsp");
 } if (anmelden.equals("anmelden")){
-	
+	ab.login(username, passwort);
 	response.sendRedirect("./StartView.jsp");
 }else{
 	response.sendRedirect("./StartView.jsp");
