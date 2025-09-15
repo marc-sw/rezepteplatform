@@ -60,5 +60,12 @@ public class AccountTable {
 		return account;
 	}
 	
+	public boolean existsAccount(String username) throws SQLException {
+		String sql = "SELECT username FROM account WHERE username = ?;";
+		PreparedStatement stmt = this.connection.prepareStatement(sql);
+		stmt.setString(1, username);
+		ResultSet result = stmt.executeQuery();
+		return result.next();
+	}
 	
 }

@@ -8,7 +8,6 @@ import de.hwg_lu.bwi520.model.Account;
 
 public class AccountBean {
 	
-	
 	private Account userAccount;
 	private AccountTable accountTable;
 	
@@ -20,7 +19,12 @@ public class AccountBean {
 	public boolean register(String username, String password) throws SQLException {
 		if (username == null || username.isBlank() || password == null || password.isBlank()) {
 			return false;
+		} 
+		
+		if (accountTable.existsAccount(username)) {
+			return false;
 		}
+		
 		return accountTable.createAccount(new Account(username, password));
 	}
 	
@@ -28,28 +32,34 @@ public class AccountBean {
 		if (username == null || username.isBlank() || password == null || password.isBlank()) {
 			return false;
 		}
+		
 		userAccount = accountTable.findAccount(username, password);
+		
 		return userAccount != null;
+	}
+	
+	public void logout() {
+		this.userAccount = null;
 	}
 	
 	public String generateAccountHTML() {
 		if (userAccount == null) {
-			return "<form action=\"./KochAppl.jsp\" method=\"get\">\r\n"
-			+ "                <table>\r\n"
-			+ "                    <tr>\r\n"
-			+ "                        <td><input type=\"text\" name=\"username\" placeholder=\"Benutzername\"></td>\r\n"
-			+ "                   </tr>\r\n"
-			+ "                    <tr> \r\n"
-			+ "                    	<td><input type=\"password\" name=\"passwort\" placeholder=\"Passwort\"></td> \r\n"
-			+ "                    </tr>\r\n"
-			+ "                     <tr> \r\n"
-			+ "                       <td><input type=\"submit\" name=\"Registrieren\" value=\"Registrieren\"> \r\n"
-			+ "                       <input type=\"submit\" name=\"Anmelden\" value=\"Anmelden\"></td>\r\n"
-			+ "                    </tr>\r\n"
-			+ "                </table>\r\n"
+			return "<form action=\"./KochAppl.jsp\" method=\"get\">"
+			+ "                <table>"
+			+ "                    <tr>"
+			+ "                        <td><input type=\"text\" name=\"username\" placeholder=\"Benutzername\"></td>"
+			+ "                   </tr>"
+			+ "                    <tr>"
+			+ "                    	<td><input type=\"password\" name=\"passwort\" placeholder=\"Passwort\"></td>"
+			+ "                    </tr>"
+			+ "                     <tr>"
+			+ "                       <td><input type=\"submit\" name=\"Registrieren\" value=\"Registrieren\">"
+			+ "                       <input type=\"submit\" name=\"Anmelden\" value=\"Anmelden\"></td>"
+			+ "                    </tr>"
+			+ "                </table>"
 			+ "            </form>";
-		}
-		return "<p>Sie sind angemeldet als " + userAccount.getUsername() + ".</p>";
+		} 
+		return "<p>Angemeldet als " + userAccount.getUsername() + ". <a href=\"./KochAppl.jsp?abmelden=1\">Abmelden</a></p>";
 	}
 	
 	public String generateUsernameHTML() {
