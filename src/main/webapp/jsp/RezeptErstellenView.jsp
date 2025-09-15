@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="de.hwg_lu.bwi520.bean.RezeptErstellenBean" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <title>Rezept Erstellen</title>
 </head>
 <body>
+	<jsp:useBean id="rezeptErstellen" class="de.hwg_lu.bwi520.bean.RezeptErstellenBean" scope="session" />
     <h1>Rezept Erstellen</h1>
     <p>Hier kannst du ein neues Rezept erstellen.</p>
 	<form action="./KochAppl.jsp" method="get">
@@ -19,11 +21,7 @@
 					<input type="text" name="titel" id="titel">
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<label>Zutat hinzuf&uuml;gen</label>
-				</td>
-			</tr>
+			<%= rezeptErstellen.getZutatenHTML() %>
 			<tr>
 				<td>
 					<label>Zutat</label>
@@ -39,13 +37,21 @@
 				<td>
 					<input type="number" step="0.25" name="zutatMenge">
 					<select name="zutatEinheit">
+						<option>ml</option>
+						<option>l</option>
+						<option>g</option>
+						<option>kg</option>
 						<option>TL</option>
-						<option>ML</option>
-						<option>L</option>
-						<option>G</option>
-						<option>KG</option>
-						<option>St&uuml;ck</option>
+						<option>EL</option>
+						<option>Priese</option>
+						<option selected>St&uuml;ck</option>
 					</select>
+				</td>
+			</tr>
+			
+			<tr>
+				<td>
+					<input type="submit" name="zutatHinzufuegen" value="Zutat hinzuf&uuml;gen">
 				</td>
 			</tr>
 

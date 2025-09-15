@@ -9,7 +9,9 @@
 </head>
 <body>
 <jsp:useBean id="account" class="de.hwg_lu.bwi520.bean.AccountBean" scope="session"></jsp:useBean>
+<jsp:useBean id="rezeptErstellen" class="de.hwg_lu.bwi520.bean.RezeptErstellenBean" scope="session"></jsp:useBean>
 <%	
+	String redirectUrl = "./StartView.jsp";
 	String username = request.getParameter("username");
 	String passwort = request.getParameter("passwort");	
 	
@@ -24,8 +26,25 @@
 	else if (request.getParameter("abmelden") != null) 
 	{
 		account.logout();
+	} 
+	else if (request.getParameter("zutatHinzufuegen") != null) 
+	{
+		String name = request.getParameter("zutatName");
+		float menge = Float.parseFloat(request.getParameter("zutatMenge"));
+		String einheit = request.getParameter("zutatEinheit");
+		rezeptErstellen.zutatHinzufuegen(name, menge, einheit);
+		redirectUrl = "./RezeptErstellenView.jsp";
+	} 
+	else if (request.getParameter("rezeptErstellen") != null) 
+	{
+		String titel = request.getParameter("titel");
+		String bildPfad = request.getParameter("bild");
+		int dauerMinuten = Integer.parseInt(request.getParameter("dauer"));
+		String zubereitung = request.getParameter("zubereitung");
+		rezeptErstellen.erstelleRezept(titel, bildPfad, dauerMinuten, zubereitung);
+		redirectUrl = "./RezeptErstellenView.jsp";
 	}
-	response.sendRedirect("./StartView.jsp");		
+	response.sendRedirect(redirectUrl);		
 		
 %>
 </body>
