@@ -20,12 +20,7 @@ public class AccountTable {
 	
 	// Stellt sicher, dass die Datenbank Tabelle vorhanden ist
 	private boolean createTable() throws SQLException {
-		String sql = """
-				CREATE TABLE IF NOT EXISTS account (
-					username VARCHAR PRIMARY KEY,
-					password VARCHAR NOT NULL
-				);
-					""";
+		String sql = "CREATE TABLE IF NOT EXISTS account (username VARCHAR PRIMARY KEY,password VARCHAR NOT NULL);";
 		Statement stmt = this.connection.createStatement();
 		return stmt.execute(sql);
 	}
