@@ -14,6 +14,7 @@ public class RezeptBean {
 
 	
     private Connection connection;
+    private Rezept rezept;
 
     public RezeptBean() throws SQLException, ClassNotFoundException {
         this.connection = ConnectionManager.getSharedConnection();
@@ -39,5 +40,28 @@ public class RezeptBean {
             e.printStackTrace();
         }
         return rezepte; */
+    
+    public void speichereRezept() throws SQLException {
+        String sql = "INSERT INTO rezepte (titel, zutaten, dauer, zubereitung, bildname) VALUES (?, ?, ?, ?)";
+        PreparedStatement prep = this.connection.prepareStatement(sql);
+        prep.setString(1, this.rezept.getTitel());
+        prep.setInt(2, this.rezept.getDauerMinuten());
+        prep.setString(3, this.rezept.getZubereitung());
+        prep.setString(4, this.rezept.getBildName());
+        prep.executeUpdate();
+    } 
+    
+    public ArrayList<String> sucheRezepte(String zutat) throws SQLException {
+    	String sql = "SELECT titel FROM rezepte WHERE titel LIKE ?";
+    	PreparedStatement prep = this.connection.prepareStatement(sql);
+    	prep.setString(1, "%" + zutat + "%");
+        ResultSet rs = prep.executeQuery();
+
+        ArrayList<String> rezepte = new ArrayList<>();
+        while (rs.next()) {
+            rezepte.add(rs.getString("titel"));
+        }
+        return rezepte;
+    }
     
 }
