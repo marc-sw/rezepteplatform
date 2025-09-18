@@ -22,7 +22,7 @@
     <nav>
         <a href="RezeptErstellenView.jsp">+ Rezept erstellen</a>
         <a href="SucheView.jsp?zutat=">🔍 Rezepte suchen</a>
-        <a href="FavoritHinzufuegenView.jsp">⭐ Favoriten</a>
+        <a href="FavoritenView.jsp">⭐ Favoriten</a>
     </nav>
     
     <main>
