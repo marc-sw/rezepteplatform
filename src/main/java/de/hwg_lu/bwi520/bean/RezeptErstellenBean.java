@@ -18,7 +18,7 @@ public class RezeptErstellenBean {
 		if (name == null || name.isBlank() || menge == 0 || einheit == null || einheit.isBlank()) {
 			return;
 		}
-		zutaten.add(new Zutat(name, menge, einheit));
+		zutaten.add(new Zutat(0, name, menge, einheit));
 	}
 	
 	public void erstelleRezept(String titel, String bildPfad, int dauerMinuten, String zubereitung) {

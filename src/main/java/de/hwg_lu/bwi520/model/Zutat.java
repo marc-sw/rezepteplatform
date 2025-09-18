@@ -1,20 +1,31 @@
 package de.hwg_lu.bwi520.model;
 
 public class Zutat {
+	
+	private int id;
 	private String name;
 	private float menge;
 	private String mengeEinheit;
 	
-	public Zutat(String name, float menge, String mengeEinheit) {
+	public Zutat(int id, String name, float menge, String mengeEinheit) {
 		this.name = name;
 		this.menge = menge;
 		this.mengeEinheit = mengeEinheit;
 	}
 	
 	public Zutat() {
-		this(null, 0, null);
+		this(0, null, 0, null);
 	}
 	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}

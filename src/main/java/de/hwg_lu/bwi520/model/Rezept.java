@@ -5,19 +5,31 @@ import java.util.List;
 
 public class Rezept {
 	
+	private int id;
 	private String titel;
 	private List<Zutat> zutaten;
 	private String bildName;
 	private int dauerMinuten;
 	private String zubereitung;
+	private String kategorie;
 	
-	public Rezept(String titel, String bildName, int dauerMinuten, String zubereitung) {
+	public Rezept(int id, String titel, String bildName, int dauerMinuten, String zubereitung, String kategorie) {
 		super();
+		this.id = id;
 		this.titel = titel;
 		this.zutaten = new ArrayList<Zutat>();
 		this.bildName = bildName;
 		this.dauerMinuten = dauerMinuten;
 		this.zubereitung = zubereitung;
+		this.kategorie = kategorie;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	public String getTitel() {
@@ -50,6 +62,15 @@ public class Rezept {
 	public void setZubereitung(String zubereitung) {
 		this.zubereitung = zubereitung;
 	}
+
+	public String getKategorie() {
+		return kategorie;
+	}
+
+	public void setKategorie(String kategorie) {
+		this.kategorie = kategorie;
+	}
+	
 	
 	
 }
