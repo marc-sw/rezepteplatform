@@ -1,4 +1,4 @@
-package de.hwg_lu.bwi520.model;
+	package de.hwg_lu.bwi520.model;
 
 public class Account {
 	
