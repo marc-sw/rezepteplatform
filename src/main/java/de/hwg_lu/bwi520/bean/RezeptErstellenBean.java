@@ -32,6 +32,15 @@ public class RezeptErstellenBean {
 		if (zutaten.isEmpty()) {
 			return "";
 		}
-		return "<tr><td>Zutaten</td><td>" + zutaten.stream().map(zutat ->"%s %.2f %s ".formatted(zutat.getName(), zutat.getMenge(), zutat.getMengeEinheit())).collect(Collectors.joining(", ")) + "</td></tr>";
+		StringBuilder html = new StringBuilder();
+		html.append("<tr><td>Zutaten</td><td>");
+		Zutat zutat = zutaten.get(0);
+		html.append("%s %.2f %s ".formatted(zutat.getName(), zutat.getMenge(), zutat.getMengeEinheit()));
+		for (int i = 1; i < zutaten.size(); i++) {
+			zutat = zutaten.get(i);
+			html.append(", %s %.2f %s ".formatted(zutat.getName(), zutat.getMenge(), zutat.getMengeEinheit()));
+		}
+		html.append("</td></tr>");
+		return html.toString();
 	}
 }
