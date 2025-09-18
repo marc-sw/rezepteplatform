@@ -64,4 +64,7 @@ public class RezeptBean {
         return rezepte;
     }
     
+    
+    
+    
 }
