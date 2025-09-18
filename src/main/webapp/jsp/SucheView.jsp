@@ -12,6 +12,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+<jsp:useBean id ="rb" class ="de.hwg_lu.bwi520.bean.RezeptBean" scope ="session"/>
 	<%-- 
 	
 	<form action="rezeptAppl.jsp" method="get">
@@ -75,7 +76,7 @@
 <%-- 1.Slide --%>
   <div class="carousel-inner">
     <div class="carousel-item active">
-       <a href="Suppen.jsp">
+       <a href="KochAppl.jsp?kategoriesuche=Suppen">
       <img src="../img/suppen.jpg" class="d-block w-100" alt="Suppen">
       <div class="carousel-caption d-none d-md-block">
         <h5>Suppen</h5>
@@ -85,7 +86,7 @@
     </div>
    <%-- 2.Slide --%>
     <div class="carousel-item">
-    <a href = "Hauptspeissen.jsp">
+    <a href = "KochAppl.jsp?kategoriesuche=Hauptspeisen">
       <img src="../img/hauptspeisse.jpg" class="d-block w-100" alt="Hauptspeisen">
       <div class="carousel-caption d-none d-md-block">
         <h5>Hauptspeissen</h5>
@@ -95,7 +96,7 @@
     </div>
  <%-- 3.Slide --%>
     <div class="carousel-item">
-     <a href ="Beilagen.jsp">
+     <a href ="KochAppl.jsp?kategoriesuche=Beilagen">
       <img src="../img/beilagen.jpg" class="d-block w-100" alt="Beilagen">
       <div class="carousel-caption d-none d-md-block">
         <h5>Beilagen</h5>
@@ -105,7 +106,7 @@
     </div>
    <%-- 4.Slide --%>
     <div class="carousel-item">
-		<a href ="Desserts.jsp">
+		<a href ="KochAppl.jsp?kategoriesuche=Desserts">
       <img src="../img/desserts.jpg" class="d-block w-100" alt="Desserts">
       <div class="carousel-caption d-none d-md-block">
         <h5>Desserts</h5>
@@ -115,7 +116,7 @@
     </div>
    <%--5.Slide --%>
     <div class="carousel-item">
-		<a href ="Salat.jsp">
+		<a href ="KochAppl.jsp?kategoriesuche=Salat">
       <img src="../img/salat.jpg" class="d-block w-100" alt="Salate">
       <div class="carousel-caption d-none d-md-block">
         <h5>Salate</h5>
@@ -134,7 +135,7 @@
     <span class="sr-only">Next</span>
   </a>
 </div>
-		
+	
     <footer>
         &copy; 2025 (Rezept Manager) Projekt | BWI520
     </footer>

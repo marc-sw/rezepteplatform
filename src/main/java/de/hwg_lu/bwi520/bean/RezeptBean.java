@@ -6,62 +6,54 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import de.hwg_lu.bwi.jdbc.RezeptTable;
 import de.hwg_lu.bwi.jdbc.ConnectionManager;
 import de.hwg_lu.bwi520.model.Rezept;
-
 public class RezeptBean {
 
-	
-    private Connection connection;
+	private String kategoriesuche;
+	private RezeptTable rezepttable;
     private Rezept rezept;
 
     public RezeptBean() throws SQLException, ClassNotFoundException {
-        this.connection = ConnectionManager.getSharedConnection();
+        this.rezepttable = new RezeptTable(ConnectionManager.getSharedConnection());
+         
     }
+    public String getRezepteByKategorie() {
+    	if(this.kategoriesuche == null) {
+    		return "Kein Rezept ausgew&auml;hlt";
+    	}
+    	
+    	StringBuilder html = new StringBuilder();
 
-  /*  public List<Rezept> getSuppen() {
-        List<Rezept> rezepte = new ArrayList<>();
-        try (PreparedStatement ps = this.connection.prepareStatement(
-                "SELECT titel, bildname, beschreibung, dauer, kategorie FROM rezepte WHERE kategorie = 'Suppen'")) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-               Rezept r = new Rezept(
-                    rs.getString("titel"),
-                    rs.getString("bildname"),
-                    null, // Zutaten erstmal leer
-                    rs.getString("beschreibung"),
-                    rs.getInt("dauer")
-                    rs.getString("kategorie")
-                );
-                rezepte.add(r);
+        try {
+            List<Rezept> rezepte = rezepttable.findRezepteByKategorie(kategoriesuche);
+
+            for (Rezept r : rezepte) {
+                html.append("<div class='card' style='width: 18rem; margin:10px;'>")
+                    .append("<img src='").append(r.getBildName()).append("' class='card-img-top' alt='").append(r.getTitel()).append("'>")
+                    .append("<div class='card-body'>")
+                    .append("<h5 class='card-title'>").append(r.getTitel()).append("</h5>")
+                    .append("<p class='card-text'>").append(r.getZubereitung()).append("</p>")
+                    .append("<a href='RezeptDetailView.jsp?id=").append(r.getId()).append("' class='btn btn-primary'>Details</a>")
+                    .append("</div></div>");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return rezepte; */
-    
-    public void speichereRezept() throws SQLException {
-        String sql = "INSERT INTO rezepte (titel, zutaten, dauer, zubereitung, bildname) VALUES (?, ?, ?, ?)";
-        PreparedStatement prep = this.connection.prepareStatement(sql);
-        prep.setString(1, this.rezept.getTitel());
-        prep.setInt(2, this.rezept.getDauerMinuten());
-        prep.setString(3, this.rezept.getZubereitung());
-        prep.setString(4, this.rezept.getBildName());
-        prep.executeUpdate();
-    } 
-    
-    public ArrayList<String> sucheRezepte(String zutat) throws SQLException {
-    	String sql = "SELECT titel FROM rezepte WHERE titel LIKE ?";
-    	PreparedStatement prep = this.connection.prepareStatement(sql);
-    	prep.setString(1, "%" + zutat + "%");
-        ResultSet rs = prep.executeQuery();
 
-        ArrayList<String> rezepte = new ArrayList<>();
-        while (rs.next()) {
-            rezepte.add(rs.getString("titel"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            html.append("<p>Fehler beim Laden der Rezepte.</p>");
         }
-        return rezepte;
+
+        return html.toString();
     }
-    
+    public void setKategorieSuche(String kategoriesuche) {
+    	this.kategoriesuche = kategoriesuche;
+    }
+    public String generateKategoriesucheHTML() {
+    	if(kategoriesuche == null) {
+    		return "Kein Rezept!!!";
+    	}else {
+    		return kategoriesuche;
+    	}
+    }
 }

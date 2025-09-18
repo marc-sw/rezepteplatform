@@ -10,10 +10,13 @@
 <body>
 <jsp:useBean id="account" class="de.hwg_lu.bwi520.bean.AccountBean" scope="session"></jsp:useBean>
 <jsp:useBean id="rezeptErstellen" class="de.hwg_lu.bwi520.bean.RezeptErstellenBean" scope="session"></jsp:useBean>
+<jsp:useBean id ="rb" class ="de.hwg_lu.bwi520.bean.RezeptBean" scope ="session"/>
 <%	
 	String redirectUrl = "./StartView.jsp";
 	String username = request.getParameter("username");
 	String passwort = request.getParameter("passwort");	
+	String kategoriesuche = request.getParameter("kategoriesuche");
+
 	
 	if (request.getParameter("Registrieren") != null)
 	{
@@ -44,7 +47,12 @@
 		rezeptErstellen.erstelleRezept(titel, bildPfad, dauerMinuten, zubereitung);
 		redirectUrl = "./RezeptErstellenView.jsp";
 	}
-	response.sendRedirect(redirectUrl);		
+	else if (kategoriesuche != null)	
+	{
+		rb.setKategorieSuche(kategoriesuche);
+		redirectUrl = "./RezeptListeView.jsp";
+		}
+		response.sendRedirect(redirectUrl);		
 		
 %>
 </body>
