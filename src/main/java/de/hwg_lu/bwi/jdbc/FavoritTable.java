@@ -63,7 +63,7 @@ public class FavoritTable {
         return list;
     }
     public List<Rezept> findRezepteByUser(String username) throws SQLException {
-        String sql = "SELECT r.id, r.titel, r.bildname, r.dauer, r.zubereitung, r.kategorie "
+        String sql = "SELECT r.id, r.titel, r.bildname, r.dauerMinuten, r.zubereitung, r.kategorie "
                    + "FROM favoriten f "
                    + "JOIN rezepte r ON f.rezept_id = r.id "
                    + "WHERE f.username = ?;";
