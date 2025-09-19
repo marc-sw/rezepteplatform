@@ -3,6 +3,11 @@
 <%@page import="de.hwg_lu.bwi520.bean.AccountBean" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="org.apache.commons.fileupload.FileItem" %>
+<%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory" %>
+<%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload" %>
+    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,20 +59,33 @@
         String uploadPath = application.getRealPath("") + File.separator + "img/uploads";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) uploadDir.mkdirs();
-
+	
         // Bild-Part holen
         Part filePart = request.getPart("bild");
         String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
         String filePath = uploadPath + File.separator + fileName;
-        
-        // Datei speichern
-        filePart.write(filePath);
+	
+        DiskFileItemFactory factory = new DiskFileItemFactory();
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        List<FileItem> items = upload.parseRequest(request);
 
-        rezeptErstellen.erstelleRezept(titel, fileName, dauer, zubereitung, kategorie);
+        for (FileItem item : items) {
+            if (!item.isFormField()) {
+                // normale Form-Felder
+                String fileName2 = new File(item.getName()).getName();
+                File file = new File(uploadPath + File.separator + fileName2);
+                item.write(file);
+                bildPfad = "img/uploads/" + fileName2; 
+                             
+            }
         
-	}
+        	// Datei speichern
+       		 filePart.write(filePath);
+
+       		 rezeptErstellen.erstelleRezept(titel, fileName, dauer, zubereitung, kategorie);
+        
+			}
 	response.sendRedirect(redirectUrl);		
-		
-%>
+		%>
 </body>
 </html>
