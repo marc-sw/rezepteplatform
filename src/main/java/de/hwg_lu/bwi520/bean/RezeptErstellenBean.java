@@ -1,15 +1,18 @@
 package de.hwg_lu.bwi520.bean;
 
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import de.hwg_lu.bwi.jdbc.ConnectionManager;
 import de.hwg_lu.bwi.jdbc.RezeptTable;
 import de.hwg_lu.bwi.jdbc.ZutatTable;
+import de.hwg_lu.bwi520.ImageAccess;
 import de.hwg_lu.bwi520.model.Rezept;
 import de.hwg_lu.bwi520.model.Zutat;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.Part;
 
 public class RezeptErstellenBean {
 	
@@ -23,8 +26,20 @@ public class RezeptErstellenBean {
 		rezeptTable = new RezeptTable(ConnectionManager.getSharedConnection());
 	}
 	
-	private boolean valid(String value) {
-		return value != null && !value.isBlank();
+	private String getKategorieImage(String kategorie) {
+		if (kategorie.equals("Suppe")) {
+			return "suppen.jsp";
+		}
+		if (kategorie.equals("Salat")) {
+			return "salat.jsp";
+		}
+		if (kategorie.equals("Beilage")) {
+			return "beilagen.jpg";
+		}
+		if (kategorie.equals("Dessert")) {
+			return "desserts.jpg";
+		}
+		return "hauptspeisse.jpg";
 	}
 	
 	public void zutatHinzufuegen(String name, float menge, String einheit) {
@@ -34,15 +49,26 @@ public class RezeptErstellenBean {
 		zutaten.add(new Zutat(0, name, menge, einheit));
 	}
 	
-	public void erstelleRezept(String titel, String fileName, int dauerMinuten, String zubereitung, String kategorie) throws SQLException {
-		if (zutaten.isEmpty() || !valid(titel) || dauerMinuten == 0 || !valid(zubereitung) || !valid(kategorie) || !valid(fileName) ) {
+	public void erstelleRezept(Rezept rezept, Part imagePart, String rootPath) throws SQLException {
+		if (rezept == null || rootPath == null) {
 			return;
 		}
-		rezeptTable.insertRezept(new Rezept(0, titel, fileName, dauerMinuten, zubereitung, kategorie));
+		
+		if (imagePart == null || imagePart.getSize() == 0) {
+			System.out.println("using default image");
+			rezept.setBildName("/img/" + getKategorieImage(rezept.getKategorie()));
+		} else {
+			String filename = System.currentTimeMillis() + "_" + imagePart.getSubmittedFileName();
+			rezept.setBildName("/img/uploads/" + filename);
+			String absolutPath = rootPath + "/" + rezept.getBildName();
+			ImageAccess.uploadImage(imagePart, absolutPath);
+		}
+		rezeptTable.insertRezept(rezept);
 		
 		for (Zutat zutat: zutaten) {
 			zutatTable.createZutat(zutat.getName(), zutat.getMenge(), zutat.getMengeEinheit());
 		}
+		System.out.println("Rezept erstellt");
 	}
 	
 	public String getZutatenHTML() {
@@ -59,5 +85,23 @@ public class RezeptErstellenBean {
 		}
 		html.append("</td></tr>");
 		return html.toString();
+	}
+	
+	public static RezeptErstellenBean fromRequest(HttpServletRequest request) {
+		RezeptErstellenBean bean = (RezeptErstellenBean) request.getSession().getAttribute("rezeptErstellen");
+    	if (bean == null) {
+    		try {
+    			bean = new RezeptErstellenBean();
+    			request.getSession().setAttribute("rezeptErstellen", bean);
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
+    	
+    	return bean;
 	}
 }

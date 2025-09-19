@@ -24,6 +24,10 @@ public class Rezept {
 		this.kategorie = kategorie;
 	}
 	
+	public Rezept() {
+		this(0, null, null, 0, null, null);
+	}
+	
 	public int getId() {
 		return id;
 	}

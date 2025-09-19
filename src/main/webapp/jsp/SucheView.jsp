@@ -76,7 +76,7 @@
 <%-- 1.Slide --%>
   <div class="carousel-inner">
     <div class="carousel-item active">
-       <a href="KochAppl.jsp?kategoriesuche=Suppen">
+       <a href="KochAppl.jsp?kategoriesuche=Suppe">
       <img src="../img/suppen.jpg" class="d-block w-100" alt="Suppen">
       <div class="carousel-caption d-none d-md-block">
         <h5>Suppen</h5>
@@ -86,7 +86,7 @@
     </div>
    <%-- 2.Slide --%>
     <div class="carousel-item">
-    <a href = "KochAppl.jsp?kategoriesuche=Hauptspeisen">
+    <a href = "KochAppl.jsp?kategoriesuche=Hauptspeise">
       <img src="../img/hauptspeisse.jpg" class="d-block w-100" alt="Hauptspeisen">
       <div class="carousel-caption d-none d-md-block">
         <h5>Hauptspeissen</h5>
@@ -96,7 +96,7 @@
     </div>
  <%-- 3.Slide --%>
     <div class="carousel-item">
-     <a href ="KochAppl.jsp?kategoriesuche=Beilagen">
+     <a href ="KochAppl.jsp?kategoriesuche=Beilage">
       <img src="../img/beilagen.jpg" class="d-block w-100" alt="Beilagen">
       <div class="carousel-caption d-none d-md-block">
         <h5>Beilagen</h5>
@@ -106,7 +106,7 @@
     </div>
    <%-- 4.Slide --%>
     <div class="carousel-item">
-		<a href ="KochAppl.jsp?kategoriesuche=Desserts">
+		<a href ="KochAppl.jsp?kategoriesuche=Dessert">
       <img src="../img/desserts.jpg" class="d-block w-100" alt="Desserts">
       <div class="carousel-caption d-none d-md-block">
         <h5>Desserts</h5>

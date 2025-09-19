@@ -6,14 +6,14 @@
 <meta charset="UTF-8">
 <title>Rezepte nach Kategorien</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<link rel ="stylesheet" href="css/bootstrap.min.css">
+<link rel ="stylesheet" href="../css/bootstrap.min.css">
 <link rel ="stylesheet" href="../css/kochCSS.css">
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
 <jsp:useBean id ="rb" class ="de.hwg_lu.bwi520.bean.RezeptBean" scope ="session" />
-	
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#"><%= rb.generateKategoriesucheHTML() %> Suche</a>

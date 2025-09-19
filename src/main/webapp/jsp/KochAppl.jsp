@@ -4,9 +4,7 @@
 <%@page import="de.hwg_lu.bwi520.bean.AccountBean" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="org.apache.commons.fileupload.FileItem" %>
-<%@ page import="org.apache.commons.fileupload.disk.DiskFileItemFactory" %>
-<%@ page import="org.apache.commons.fileupload.servlet.ServletFileUpload" %>
+
     
     
 <!DOCTYPE html>
@@ -24,7 +22,6 @@
 	String username = request.getParameter("username");
 	String passwort = request.getParameter("passwort");	
 	String kategoriesuche = request.getParameter("kategoriesuche");
-
 	
 	if (request.getParameter("Registrieren") != null)
 	{
