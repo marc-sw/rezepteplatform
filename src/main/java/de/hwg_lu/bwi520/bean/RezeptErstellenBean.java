@@ -1,17 +1,30 @@
 package de.hwg_lu.bwi520.bean;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import de.hwg_lu.bwi.jdbc.ConnectionManager;
+import de.hwg_lu.bwi.jdbc.RezeptTable;
+import de.hwg_lu.bwi.jdbc.ZutatTable;
+import de.hwg_lu.bwi520.model.Rezept;
 import de.hwg_lu.bwi520.model.Zutat;
 
 public class RezeptErstellenBean {
 	
+	private ZutatTable zutatTable;
+	private RezeptTable rezeptTable;
 	private List<Zutat> zutaten;
 	
-	public RezeptErstellenBean() {
+	public RezeptErstellenBean() throws ClassNotFoundException, SQLException {
 		zutaten = new ArrayList<Zutat>();
+		zutatTable = new ZutatTable(ConnectionManager.getSharedConnection());
+		rezeptTable = new RezeptTable(ConnectionManager.getSharedConnection());
+	}
+	
+	private boolean valid(String value) {
+		return value != null && !value.isBlank();
 	}
 	
 	public void zutatHinzufuegen(String name, float menge, String einheit) {
@@ -21,11 +34,15 @@ public class RezeptErstellenBean {
 		zutaten.add(new Zutat(0, name, menge, einheit));
 	}
 	
-	public void erstelleRezept(String titel, String bildPfad, int dauerMinuten, String zubereitung) {
-		if (zutaten.isEmpty() || titel == null || titel.isBlank() || dauerMinuten == 0 || zubereitung == null || zubereitung.isBlank()) {
+	public void erstelleRezept(String titel, String fileName, int dauerMinuten, String zubereitung, String kategorie) throws SQLException {
+		if (zutaten.isEmpty() || !valid(titel) || dauerMinuten == 0 || !valid(zubereitung) || !valid(kategorie) || !valid(fileName) ) {
 			return;
 		}
+		rezeptTable.insertRezept(new Rezept(0, titel, fileName, dauerMinuten, zubereitung, kategorie));
 		
+		for (Zutat zutat: zutaten) {
+			zutatTable.createZutat(zutat.getName(), zutat.getMenge(), zutat.getMengeEinheit());
+		}
 	}
 	
 	public String getZutatenHTML() {
