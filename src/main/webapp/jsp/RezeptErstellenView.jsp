@@ -11,7 +11,7 @@
 	<jsp:useBean id="rezeptErstellen" class="de.hwg_lu.bwi520.bean.RezeptErstellenBean" scope="session" />
     <h1>Rezept Erstellen</h1>
     <p>Hier kannst du ein neues Rezept erstellen.</p>
-	<form action="./KochAppl.jsp" method="get" enctype="multipart/form-data">
+	<form action="${pageContext.request.contextPath}/RezeptServlet" method="post" enctype="multipart/form-data">
 		<table>
 			<tr> 
 				<td>
