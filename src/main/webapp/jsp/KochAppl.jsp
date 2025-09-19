@@ -1,3 +1,5 @@
+<%@page import="java.nio.file.Paths"%>
+<%@page import="java.io.File"%>
 <%@page import="de.hwg_lu.bwi520.bean.AccountBean" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -38,21 +40,33 @@
 		rezeptErstellen.zutatHinzufuegen(name, menge, einheit);
 		redirectUrl = "./RezeptErstellenView.jsp";
 	} 
-	else if (request.getParameter("rezeptErstellen") != null) 
-	{
-		String titel = request.getParameter("titel");
-		String bildPfad = request.getParameter("bild");
-		int dauerMinuten = Integer.parseInt(request.getParameter("dauer"));
-		String zubereitung = request.getParameter("zubereitung");
-		rezeptErstellen.erstelleRezept(titel, bildPfad, dauerMinuten, zubereitung);
-		redirectUrl = "./RezeptErstellenView.jsp";
-	}
 	else if (kategoriesuche != null)	
 	{
 		rb.setKategorieSuche(kategoriesuche);
 		redirectUrl = "./RezeptListeView.jsp";
-		}
-		response.sendRedirect(redirectUrl);		
+	}
+	else if (request.getParameter("rezeptErstellen") != null) 
+	{
+		String titel = request.getParameter("titel");
+        int dauer = Integer.parseInt(request.getParameter("dauer"));
+        String zubereitung = request.getParameter("zubereitung");
+        String kategorie = request.getParameter("kategorie");
+        String uploadPath = application.getRealPath("") + File.separator + "img/uploads";
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) uploadDir.mkdirs();
+
+        // Bild-Part holen
+        Part filePart = request.getPart("bild");
+        String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+        String filePath = uploadPath + File.separator + fileName;
+        
+        // Datei speichern
+        filePart.write(filePath);
+
+        rezeptErstellen.erstelleRezept(titel, fileName, dauer, zubereitung, kategorie);
+        
+	}
+	response.sendRedirect(redirectUrl);		
 		
 %>
 </body>
